@@ -26,7 +26,6 @@ I needed an easy to use software providing continuous localization and didn't fi
 
 # Requirements
 
-* ulf (https://github.com/shirerom/ios-update-localizable-strings)
 * genstrings
 * ibtool
 * Xcode project with Base Internationalization
@@ -38,7 +37,7 @@ I needed an easy to use software providing continuous localization and didn't fi
 
 ## IMPORTANT
 
-`Base.lproj/Localizable.strings` **MUST NOT** be part of the bundle! Otherwise translations apart from the main language won't work
+`Base.lproj/Localizable.strings` **MUST** exist, but **MUST NOT** be part of the bundle! Otherwise translations apart from the main language won't work
 
 # License
 
