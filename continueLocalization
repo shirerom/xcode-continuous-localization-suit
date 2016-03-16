@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# continueTranslation
+#
+# Created by Johannes Bauer on 29.01.15.
+# Copyright (c) 2015 Johannes Bauer. All rights reserved.
+#
+# Requirements:
+# - Base Internationalization
+# - ulf
+# - genstrings
+#
+# IMPORTANT:
+# Base.lproj/Localizable.strings MUST NO be part of the bundle! Otherwise
+# translations apart from the main language won't work
+
+
+LANGUAGES="de en"
+
+if [ ! -d "Base.lproj" ]; then
+
+	echo "Base.lproj not found"
+	exit 1
+fi
+
+#
+# Extracting
+#
+
+# Inline strings
+genstrings -o Base.lproj/ *.m ContinuousLocalizationStrings.h
+
+# Storyboards
+for storyboard in Base.lproj/*.storyboard; do
+
+	filename=$(basename "$storyboard")
+	echo extracting strings: $filename
+
+	ibtool --export-strings-file `echo $storyboard | sed -e s/storyboard/strings/` $storyboard
+done
+
+# XIBs
+for storyboard in Base.lproj/*.xib; do
+
+	filename=$(basename "$storyboard")
+	echo extracting strings: $filename
+
+	ibtool --export-strings-file `echo $storyboard | sed -e s/xib/strings/` $storyboard
+done
+
+#
+# Merging
+#
+
+#
+for l in $LANGUAGES; do
+
+	echo -en '\033[0;34m'--- $l
+	echo -e  '\033[0;30m'
+
+	for stringsFile in Base.lproj/*.strings; do
+
+		filename=$(basename "$stringsFile")
+
+		echo -en '\033[0;32m'merging $filename ...
+		echo -e  '\033[0;30m'
+
+		ulf $l.lproj/$filename Base.lproj/$filename $l.lproj/$filename
+
+	done
+done
+
