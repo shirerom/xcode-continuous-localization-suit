@@ -18,7 +18,7 @@ A file named `ContinousLocalizationStrings.h` and added to the folder where `*.l
 
 It often happens that there dynamic labels, text fields and so on with placeholder (for convenience) in IB files. There is no need to translate such placeholders. `continueLocalisation` provides a functionality to omit placeholder from localization. Just put the placeholder text in angle brackets
 
-e.g.: "Label" --> "<Label>"
+e.g.: "Label" --> "\<Label\>"
 
 # Why is it?
 
@@ -26,7 +26,7 @@ I needed an easy to use software providing continuous localization and didn't fi
 
 # Requirements
 
-* [https://github.com/shirerom/ios-update-localizable-strings ulf]
+* ulf (https://github.com/shirerom/ios-update-localizable-strings)
 * genstrings
 * ibtool
 * Xcode project with Base Internationalization
